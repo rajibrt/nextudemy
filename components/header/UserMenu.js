@@ -8,13 +8,13 @@ export default function UserMenu({ loggedIn }) {
       {loggedIn ? (
         <div className={styles.flex}>
           <img
-            src="https://techtrickseo.com/wp-content/uploads/2019/11/asfDFHJDKFHDFJH.jpg"
+            src="https://eclatsuperior.com/wp-content/uploads/2021/04/man3.jpg"
             alt=""
             className={styles.menu__img}
           />
           <div className={styles.col}>
             <span>Welcome Back,</span>
-            <h2>Raisha</h2>
+            <h2>Rafid</h2>
             <span>Sign Out</span>
           </div>
         </div>

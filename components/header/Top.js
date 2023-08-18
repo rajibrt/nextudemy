@@ -5,9 +5,9 @@ import { RiAccountPinCircleLine, RiArrowDownFill } from "react-icons/ri";
 import Link from "next/link";
 import { useState } from "react";
 import UserMenu from "./UserMenu";
-
 export default function Top() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
+  const [visible, setVisible] = useState(false);
   return (
     <div className={styles.top}>
       <div className={styles.top__container}>
@@ -36,15 +36,19 @@ export default function Top() {
               <span>Wishlist</span>
             </Link>
           </li>
-          <li className={styles.li}>
+          <li
+            className={styles.li}
+            onMouseOver={() => setVisible(true)}
+            onMouseLeave={() => setVisible(false)}
+          >
             {loggedIn ? (
               <li className={styles.li}>
                 <div className={styles.flex}>
                   <img
-                    src="https://techtrickseo.com/wp-content/uploads/2019/11/asfDFHJDKFHDFJH.jpg"
+                    src="https://eclatsuperior.com/wp-content/uploads/2021/04/man3.jpg"
                     alt="Name"
                   />
-                  <span>Raisha</span>
+                  <span>Rafid</span>
                   <RiArrowDownFill />
                 </div>
               </li>
@@ -57,7 +61,7 @@ export default function Top() {
                 </div>
               </li>
             )}
-            <UserMenu loggedIn={loggedIn} />
+            {visible && <UserMenu loggedIn={loggedIn} />}{" "}
           </li>
         </ul>
       </div>
