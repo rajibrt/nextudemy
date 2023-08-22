@@ -3,6 +3,7 @@ import styles from "./styles.module.scss";
 import { RiSearch2Line } from "react-icons/ri";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useSelector } from "react-redux";
+import { useSession } from "next-auth/react";
 export default function Main() {
   const { cart } = useSelector((state) => ({ ...state }));
   return (

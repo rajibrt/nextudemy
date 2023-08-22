@@ -5,8 +5,9 @@ import { RiAccountPinCircleLine, RiArrowDownFill } from "react-icons/ri";
 import Link from "next/link";
 import { useState } from "react";
 import UserMenu from "./UserMenu";
+import { useSession } from "next-auth/react";
 export default function Top({ country }) {
-  const [loggedIn, setLoggedIn] = useState(true);
+  const { data: session } = useSession();
   const [visible, setVisible] = useState(false);
   return (
     <div className={styles.top}>
@@ -38,14 +39,11 @@ export default function Top({ country }) {
             onMouseOver={() => setVisible(true)}
             onMouseLeave={() => setVisible(false)}
           >
-            {loggedIn ? (
+            {session ? (
               <li className={styles.li}>
                 <div className={styles.flex}>
-                  <img
-                    src="https://eclatsuperior.com/wp-content/uploads/2021/04/man3.jpg"
-                    alt="Name"
-                  />
-                  <span>Rafid</span>
+                  <img src={session.user.image} alt="User Image" />
+                  <span>{session.user.name}</span>
                   <RiArrowDownFill />
                 </div>
               </li>
@@ -58,7 +56,7 @@ export default function Top({ country }) {
                 </div>
               </li>
             )}
-            {visible && <UserMenu loggedIn={loggedIn} />}{" "}
+            {visible && <UserMenu session={session} />}{" "}
           </li>
         </ul>
       </div>
