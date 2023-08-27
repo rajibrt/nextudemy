@@ -1,4 +1,4 @@
-import { BiRightArrowAlt } from "react-icons/bi";
+import { BiRightArrowAlt } from "node_modules/react-icons/bi";
 import styles from "./styles.module.scss";
 export default function CircledIconBtn({ type, text, icon }) {
   return (

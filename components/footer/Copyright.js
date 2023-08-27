@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styles from "./styles.module.scss";
-import { IoLocationSharp } from "react-icons/io5";
+import { IoLocationSharp } from "node_modules/react-icons/io5";
 
 export default function Copyright({ country }) {
   return (
