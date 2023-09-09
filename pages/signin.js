@@ -8,7 +8,12 @@ import * as Yup from "node_modules/yup";
 import LoginInput from "components/inputs/loginInput";
 import { useState } from "react";
 import CircledIconBtn from "../components/button/circledIconBtn";
-import { getProviders, signIn } from "next-auth/react";
+import {
+  getCsrfToken,
+  getProviders,
+  getSession,
+  signIn,
+} from "next-auth/react";
 import axios from "axios";
 import DotLoaderSpinner from "@/components/loaders/dotLoader";
 import Router from "next/router";
@@ -23,7 +28,7 @@ const initialvalues = {
   error: "",
   login_error: "",
 };
-export default function SignIn({ providers }) {
+export default function SignIn({ providers, csrfToken, callbackUrl }) {
   console.log(providers);
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(initialvalues);
@@ -65,7 +70,7 @@ export default function SignIn({ providers }) {
       .min(6, "Password must be at least 6 characters long")
       .max(36, "Password can't be more than 36 characters long"),
     conf_password: Yup.string()
-      .required("confirm your password")
+      .required("Confirm your password")
       .oneOf([Yup.ref("password")], "Password must match."),
   });
   const signUpHandler = async () => {
@@ -106,7 +111,7 @@ export default function SignIn({ providers }) {
       setLoading(false);
       setUser({ ...user, login_error: res?.error });
     } else {
-      return Router.push("/");
+      return Router.push(callbackUrl || "/");
     }
   };
   return (
@@ -160,7 +165,7 @@ export default function SignIn({ providers }) {
                     <span className={styles.error}>{login_error}</span>
                   )}
                   <div className={styles.forgot}>
-                    <Link href="/forget">Forgot Password ?</Link>
+                    <Link href="/auth/forgot">Forgot Password ?</Link>
                   </div>
                 </Form>
               )}
@@ -168,19 +173,24 @@ export default function SignIn({ providers }) {
             <div className={styles.login__socials}>
               <span className={styles.or}>Or continue with</span>
               <div className={styles.login__socials_wrap}>
-                {providers.map((provider) => (
-                  <div key={provider.name}>
+                {providers.map((provider) => {
+                  if (provider.name == "Credentials") {
+                    return;
+                  }
+                  return (
                     <div key={provider.name}>
-                      <button
-                        className={styles.social__btn}
-                        onClick={() => signIn(provider.id)}
-                      >
-                        <img src={`/icons/${provider.name}.png`} alt="" />
-                        Sign in with {provider.name}
-                      </button>
+                      <div key={provider.name}>
+                        <button
+                          className={styles.social__btn}
+                          onClick={() => signIn(provider.id)}
+                        >
+                          <img src={`/icons/${provider.name}.png`} alt="" />
+                          Sign in with {provider.name}
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -205,7 +215,12 @@ export default function SignIn({ providers }) {
               }}
             >
               {(form) => (
-                <Form>
+                <Form method="post" action="/api/auth/signin/email">
+                  <input
+                    type="hidden"
+                    name="csrfToken"
+                    defaultValue={csrfToken}
+                  />
                   <LoginInput
                     type="text"
                     name="name"
@@ -251,8 +266,18 @@ export default function SignIn({ providers }) {
 }
 
 export async function getServerSideProps(context) {
+  const { req, query } = context;
+  const session = await getSession({ req });
+  const { callbackUrl } = query;
+
+  if (session) {
+    return {
+      destination: callbackUrl,
+    };
+  }
+  const csrfToken = await getCsrfToken(context);
   const providers = Object.values(await getProviders());
   return {
-    props: { providers },
+    props: { providers, csrfToken, callbackUrl },
   };
 }
