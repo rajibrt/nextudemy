@@ -224,7 +224,12 @@ $cubic-bezier: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   .swiper-slide {
     img {
       border-radius: 0 !important;
+      height: 320px !important;
     }
+  }
+  .swiper-button-next,
+  .swiper-button-prev {
+    top: 35%;
   }
 }
 //--------------Swiper-----------------
