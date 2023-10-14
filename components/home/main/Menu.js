@@ -31,7 +31,7 @@ export default function Menu() {
             <b>Categories</b>
           </a>
         </li>
-        <div className={styles.menu_list}>
+        <div className={styles.menu__list}>
           {menuArray.map((item, i) => (
             <li key={i}>
               <li>
