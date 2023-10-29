@@ -4,7 +4,7 @@ $yellow-color: #fac80f;
 $brand-color: #ec1d23;
 $violet-color: #5a31f4;
 $green-color: #3c811f;
-$redis-color: #f15f6f;
+$redish-color: #f15f6f;
 $grey-color: #f8f8f8;
 $light-error-color: #fd010169;
 $error-color: #ed4337;
@@ -177,7 +177,7 @@ $cubic-bezier: cubic-bezier(0.175, 0.885, 0.32, 1.275);
         font-style: italic;
         top: -5px;
         right: 5px;
-        background: $redis-color;
+        background: $redish-color;
         height: 40px;
         width: 40px;
         border-radius: 50%;
@@ -250,6 +250,23 @@ $cubic-bezier: cubic-bezier(0.175, 0.885, 0.32, 1.275);
     .swiper-button-next,
     .swiper-button-prev {
       display: grid !important;
+    }
+  }
+}
+.products__swiper {
+  max-width: 100%;
+  .swiper-button-next,
+  .swiper-button-prev {
+    background: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: #666;
+    box-shadow: $shadow-1;
+    &::after {
+      transform: scale(0.5);
     }
   }
 }

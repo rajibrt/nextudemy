@@ -541,6 +541,16 @@ export const gamingSwiper = [
     image: "https://ae01.alicdn.com/kf/S87eda4e95251435ca81023273f73d8dd1.jpg",
     price: "",
   },
+  {
+    name: "",
+    image: "https://ae01.alicdn.com/kf/S87eda4e95251435ca81023273f73d8dd1.jpg",
+    price: "",
+  },
+  {
+    name: "",
+    image: "https://ae01.alicdn.com/kf/S87eda4e95251435ca81023273f73d8dd1.jpg",
+    price: "",
+  },
 ];
 export const homeImprovSwiper = [
   {
@@ -566,6 +576,16 @@ export const homeImprovSwiper = [
   {
     name: "",
     image: "https://ae03.alicdn.com/kf/Se9ebef1491684e9bbde7f7f97e9fcf78k.jpg",
+    price: "",
+  },
+  {
+    name: "",
+    image: "https://ae03.alicdn.com/kf/S882fd95abb7b40ac860d4a9fab1df995Y.jpg",
+    price: "",
+  },
+  {
+    name: "",
+    image: "https://ae03.alicdn.com/kf/S882fd95abb7b40ac860d4a9fab1df995Y.jpg",
     price: "",
   },
   {
