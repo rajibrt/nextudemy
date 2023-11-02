@@ -7,10 +7,17 @@ import "swiper/css/pagination";
 
 import { Navigation } from "swiper/modules";
 
-export default function ProductsSwiper({ header, products }) {
+export default function ProductsSwiper({ header, products, bg }) {
   return (
     <div className={styles.wrapper}>
-      {header && <div className={styles.header}>{header}</div>}
+      {header && (
+        <div
+          className={styles.header}
+          style={{ background: `${bg ? bg : ""}` }}
+        >
+          {header}
+        </div>
+      )}
       <Swiper
         slidesPerView={2}
         spaceBetween={30}

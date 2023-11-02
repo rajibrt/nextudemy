@@ -7,6 +7,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import Main from "@/components/home/main";
 import FlashDeals from "@/components/home/flashDeals";
 import Category from "@/components/home/category";
+import db from "../utils/db";
 import {
   gamingSwiper,
   homeImprovSwiper,
@@ -16,9 +17,11 @@ import {
   women_swiper,
 } from "@/data/home";
 import { useMediaQuery } from "react-responsive";
-import ProductsSwiper from "@/components/productsSwiper/index.js";
+import ProductsSwiper from "@/components/productsSwiper";
+import Product from "../models/Product";
 
-export default function Home({ country }) {
+export default function Home({ country, products }) {
+  console.log("products", products);
   const { data: session } = useSession();
   const isMedium = useMediaQuery({ query: "(max-width: 850px" });
   const isMobile = useMediaQuery({ query: "(max-width: 500px" });
@@ -58,8 +61,16 @@ export default function Home({ country }) {
             />
           </div>
           <ProductsSwiper products={women_swiper} />
-          <ProductsSwiper products={gamingSwiper} />
-          <ProductsSwiper products={homeImprovSwiper} />
+          <ProductsSwiper
+            products={gamingSwiper}
+            header="For Gaming"
+            bg="#2f82ff"
+          />
+          <ProductsSwiper
+            products={homeImprovSwiper}
+            header="Home Improvement"
+            bg="#5a31f4"
+          />
         </div>
       </div>
       <Footer country={country} />
@@ -67,6 +78,8 @@ export default function Home({ country }) {
   );
 }
 export async function getServerSideProps() {
+  db.connectDb();
+  let products = await Product.find().sort({ createdAt: -1 }).lean();
   let data = await axios
     .get("https://api.ipregistry.co/?key=8ugmmpb4bn6exdlt")
     .then((res) => {
@@ -78,6 +91,7 @@ export async function getServerSideProps() {
   return {
     props: {
       // country: { name: data.name, flag: data.flag.emojitwo },
+      products: JSON.parse(JSON.stringify(products)),
       country: {
         name: "Bangladesh",
         flag: "https://uxwing.com/wp-content/themes/uxwing/download/flags-landmarks/bangladesh-flag-round-circle-icon.png",

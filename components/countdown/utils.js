@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 export function calculateDiff(timeInMs) {
   const timestamDayjs = dayjs(timeInMs);
   const nowDayjs = dayjs();
-  console.log("*************", timestamDayjs);
+  // console.log("*************", timestamDayjs);
 
   if (timestamDayjs.isBefore(nowDayjs)) {
     return {
