@@ -1,0 +1,23 @@
+.product {
+  position: relative;
+  max-width: 290px;
+  height: 500px;
+  border-radius: 10px !important;
+  overflow: hidden;
+}
+.swiper {
+  position: relative;
+  cursor: pointer;
+  background: #fff;
+  max-width: 100% !important;
+  border-radius: 10px;
+  overflow: hidden;
+
+  img {
+    max-width: 100%;
+    display: block;
+    border-radius: 10px;
+    object-fit: cover;
+    overflow: hidden;
+  }
+}

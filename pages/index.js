@@ -19,6 +19,7 @@ import {
 import { useMediaQuery } from "react-responsive";
 import ProductsSwiper from "@/components/productsSwiper";
 import Product from "../models/Product";
+import ProductCard from "@/components/productCard";
 
 export default function Home({ country, products }) {
   console.log("products", products);
@@ -71,6 +72,11 @@ export default function Home({ country, products }) {
             header="Home Improvement"
             bg="#5a31f4"
           />
+          <div className={styles.products}>
+            {products.map((product) => (
+              <ProductCard product={product} key={product._id} />
+            ))}
+          </div>
         </div>
       </div>
       <Footer country={country} />
